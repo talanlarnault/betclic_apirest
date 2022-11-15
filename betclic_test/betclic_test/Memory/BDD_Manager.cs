@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace betclic_test.Memory
 {
-    public class BDD_Manager
+    public class BDD_Manager : IBDD_Manager
     {
         private int nextBddTournamentId = 0;
         private int nextBddPlayerId = 0;
@@ -26,8 +26,8 @@ namespace betclic_test.Memory
             int tournamentIdToUse = getTournamentId(tournamentId);
             if (Players.Values.Any(x => x.Pseudo.Equals(pseudo, System.StringComparison.OrdinalIgnoreCase) && x.TournamentId == tournamentIdToUse)) throw new BDDException("Player is already registered on this tournament.");
             var newPlayer = new BDD_Player(newId, pseudo, tournamentIdToUse);
-            if(Players.TryAdd(newId, newPlayer) == false) throw new BDDException("An unexpected error happened during player registration.");
-            
+            if (Players.TryAdd(newId, newPlayer) == false) throw new BDDException("An unexpected error happened during player registration.");
+
             return getTournamentName(tournamentIdToUse);
         }
 
@@ -90,8 +90,9 @@ namespace betclic_test.Memory
             {
                 var tournamentPlayers = SelectTournamentPlayers(tournamentId);
                 var idsToRemove = tournamentPlayers.Select(x => x.PlayerId);
+                var count = idsToRemove.Count();
                 foreach (int idToRemove in idsToRemove) Players.Remove(idToRemove);
-                return idsToRemove.Count();
+                return count;
             }
             catch (Exception ex)
             {
@@ -123,7 +124,7 @@ namespace betclic_test.Memory
             {
                 return Tournaments.Values.First(x => x.TournamentName.Equals(tournamentName, StringComparison.OrdinalIgnoreCase)).TournamentId;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new BDDException($"Impossible to get tounament id from name [{tournamentName}]", ex);
             }
@@ -135,7 +136,7 @@ namespace betclic_test.Memory
             {
                 return Tournaments.Last().Value.TournamentId;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new BDDException($"Impossible to get tounament id", ex);
             }

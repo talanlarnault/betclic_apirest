@@ -1,23 +1,23 @@
 ﻿using betclic_test.Domain.Contracts;
-using betclic_test.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace betclic_test
+namespace betclic_test.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("[action]")]
     public class TournamentController : ControllerBase
     {
-        public ITournamentManager _tournamentManager { get; }
+        public readonly ITournamentManager _tournamentManager;
+        private readonly ILogger<TournamentController> _logger;
 
-        public TournamentController(ITournamentManager tournamentManager)
+        public TournamentController(ILogger<TournamentController> logger, ITournamentManager tournamentManager)
         {
+            _logger = logger;
             _tournamentManager = tournamentManager;
         }
-        [HttpPut]
+        [HttpPut("{name}")]
         public IActionResult AddTournament(string name)
         {
             try
@@ -30,7 +30,7 @@ namespace betclic_test
                 return StatusCode(500, $"Tournament [{name}]not registered because an error occured : {ex.Message} !");
             }
         }
-        [HttpPut]
+        [HttpPut("{pseudo}")]
         public IActionResult AddPlayer(string pseudo)
         {
             try
@@ -43,7 +43,7 @@ namespace betclic_test
                 return StatusCode(500, $"{ex.Message} !");
             }
         }
-        [HttpPut]
+        [HttpPut("{pseudo}/{newPoints}")]
         public IActionResult AddPlayerPoints(string pseudo, double newPoints)
         {
             try
@@ -56,7 +56,7 @@ namespace betclic_test
                 return StatusCode(500, $"{ex.Message} !");
             }
         }
-        [HttpPut]
+        [HttpPut("{pseudo}/{newScore}")]
         public IActionResult UpdatePlayerScore(string pseudo, double newScore)
         {
             try
@@ -69,12 +69,12 @@ namespace betclic_test
                 return StatusCode(500, $"{ex.Message} !");
             }
         }
-        [HttpDelete]
-        public IActionResult DeleteTournament(int id)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteTournamentById(int id)
         {
             try
             {
-                if(_tournamentManager.DeleteTournament(id)) return Ok($"Tournament deleted !");
+                if (_tournamentManager.DeleteTournament(id)) return Ok($"Tournament deleted !");
                 return StatusCode(500, $"Tournament not deleted !");
             }
             catch (Exception ex)
@@ -82,8 +82,8 @@ namespace betclic_test
                 return StatusCode(500, $"{ex.Message} !");
             }
         }
-        [HttpDelete]
-        public IActionResult DeleteTournament(string name)
+        [HttpDelete("{name}")]
+        public IActionResult DeleteTournamentByName(string name)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace betclic_test
                 return StatusCode(500, $"{ex.Message} !");
             }
         }
-        [HttpGet]
+        [HttpGet("{pseudo}")]
         public IActionResult GetPlayer(string pseudo)
         {
             try

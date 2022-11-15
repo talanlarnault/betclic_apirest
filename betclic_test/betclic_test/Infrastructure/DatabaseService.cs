@@ -1,81 +1,76 @@
 ﻿using betclic_test.Domain.Contracts;
 using betclic_test.Domain.Models;
 using betclic_test.Memory;
+using System;
 using System.Collections.Generic;
 
 namespace betclic_test.Infrastructure
 {
     public class DatabaseService : IDatabaseService
     {
-        private BDD_Manager bddManager
+        private readonly IBDD_Manager _bddManager;
+
+        public IServiceProvider ServiceProvider { get; }
+
+        public DatabaseService(IBDD_Manager bddManager)
         {
-            get
-            {
-                return new BDD_Manager();
-            }
-        }
-        public DatabaseService()
-        {
+            _bddManager = bddManager;
         }
 
         public int AddTournament(string name)
         {
-            return bddManager.InsertTournament(name);
+            return _bddManager.InsertTournament(name);
         }
 
         public string AddPlayer(string pseudo)
         {
-            return bddManager.InsertPlayer(pseudo);
+            return _bddManager.InsertPlayer(pseudo);
         }
 
         public double AddPlayerPoints(string pseudo, double newPoints)
         {
-            var myBddManager = bddManager;
-            var player = myBddManager.SelectPlayer(pseudo);
+            var player = _bddManager.SelectPlayer(pseudo);
             player.Score += newPoints;
-            myBddManager.UpdatePlayer(player.PlayerId, player);
+            _bddManager.UpdatePlayer(player.PlayerId, player);
             return player.Score;
         }
 
         public double UpdatePlayerScore(string pseudo, double newScore)
         {
-            var myBddManager = bddManager;
-            var player = myBddManager.SelectPlayer(pseudo);
+            var player = _bddManager.SelectPlayer(pseudo);
             player.Score = newScore;
-            myBddManager.UpdatePlayer(player.PlayerId, player);
+            _bddManager.UpdatePlayer(player.PlayerId, player);
             return player.Score;
         }
 
         public IEnumerable<Player> GetPlayersSortedByScore()
         {
-            var players = bddManager.SelectTournamentPlayers();
+            var players = _bddManager.SelectTournamentPlayers();
             return PlayerMapper.Map(players);
         }
         public Player GetPlayer(string pseudo)
         {
-            var player = bddManager.SelectPlayer(pseudo);
+            var player = _bddManager.SelectPlayer(pseudo);
             return PlayerMapper.Map(player);
         }
         public bool DeleteTournament(string name)
         {
-            var myBddManager = bddManager;
-            var id = myBddManager.GetTournamentId(name);
-            myBddManager.DeletePlayersFromTournament(id);
-            return myBddManager.DeleteTournament(id);
+            var id = _bddManager.GetTournamentId(name);
+            _bddManager.DeletePlayersFromTournament(id);
+            return _bddManager.DeleteTournament(id);
         }
         public bool DeleteTournament(int id)
         {
-            var myBddManager = bddManager;
-            myBddManager.DeletePlayersFromTournament(id);
-            return myBddManager.DeleteTournament(id);
+            _bddManager.DeletePlayersFromTournament(id);
+            return _bddManager.DeleteTournament(id);
         }
         public bool DeletePlayersFromTournament(int tournamentId)
         {
-            return bddManager.DeletePlayersFromTournament(tournamentId) > 0;
+            return _bddManager.DeletePlayersFromTournament(tournamentId) > 0;
         }
         public bool DeletePlayersFromTournament()
         {
-            var myBddManager = bddManager;
+            var myBddManager = _bddManager;
             var tournamentId = myBddManager.GetTournamentId();
             return myBddManager.DeletePlayersFromTournament(tournamentId) > 0;
         }

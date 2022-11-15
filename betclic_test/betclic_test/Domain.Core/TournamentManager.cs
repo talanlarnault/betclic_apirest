@@ -7,52 +7,52 @@ namespace betclic_test.Domain.Core
 {
     public class TournamentManager : ITournamentManager
     {
-        private readonly IDatabaseService databaseService;
-        private TournamentManager()
+        private readonly IDatabaseService _databaseService;
+        public TournamentManager(IDatabaseService databaseService)
         {
-            databaseService = new DatabaseService();
+            _databaseService = databaseService;
         }
         public int AddTournament(string name)
         {
-            return databaseService.AddTournament(name);
+            return _databaseService.AddTournament(name);
         }
         public string AddPlayer(string pseudo)
         {
-            return databaseService.AddPlayer(pseudo);
+            return _databaseService.AddPlayer(pseudo);
         }
 
         public double AddPlayerPoints(string pseudo, double newPoints)
         {
-            return databaseService.AddPlayerPoints(pseudo, newPoints);
+            return _databaseService.AddPlayerPoints(pseudo, newPoints);
         }
 
         public double UpdatePlayerScore(string pseudo, double newScore)
         {
-            return databaseService.UpdatePlayerScore(pseudo, newScore);
+            return _databaseService.UpdatePlayerScore(pseudo, newScore);
         }
         public bool DeleteTournament(string name)
         {
-            return databaseService.DeleteTournament(name);
+            return _databaseService.DeleteTournament(name);
         }
         public bool DeleteTournament(int id)
         {
-            return databaseService.DeleteTournament(id);
+            return _databaseService.DeleteTournament(id);
         }
         public bool DeletePlayersFromTournament(int tournamentId)
         {
-            return databaseService.DeletePlayersFromTournament(tournamentId);
+            return _databaseService.DeletePlayersFromTournament(tournamentId);
         }
         public bool DeletePlayersFromTournament()
         {
-            return databaseService.DeletePlayersFromTournament();
+            return _databaseService.DeletePlayersFromTournament();
         }
         public Player GetPlayer(string pseudo)
         {
-            return databaseService.GetPlayer(pseudo);
+            return _databaseService.GetPlayer(pseudo);
         }
         public IEnumerable<Player> GetPlayersSortedByScore()
         {
-            return databaseService.GetPlayersSortedByScore();
+            return _databaseService.GetPlayersSortedByScore();
         }
     }
 }
