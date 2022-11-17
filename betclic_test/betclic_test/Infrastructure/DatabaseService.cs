@@ -1,9 +1,7 @@
 ﻿using betclic_test.Domain.Contracts;
 using betclic_test.Domain.Models;
-using betclic_test.Memory;
 using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 
 namespace betclic_test.Infrastructure
 {
@@ -25,18 +23,8 @@ namespace betclic_test.Infrastructure
 
         public string AddPlayer(string pseudo)
         {
-            return _bddManager.InsertPlayer(pseudo);
-        }
-
-        private (int, string) GetLastTournament()
-        {
-            SQLiteCommand sqlite_cmd;
-            sqlite_cmd = sqlite_conn.CreateCommand(); 
-            sqlite_cmd.CommandText = "SELECT Id, Name From Tournament ORDER BY Id DESC LIMIT 1";
-
-            SQLiteDataReader sqlite_datareader = sqlite_cmd.ExecuteReader();
-            sqlite_datareader.Read();
-            return (sqlite_datareader.GetInt32(0), sqlite_datareader.GetString(1));
+            var tournamentName = _bddManager.InsertPlayer(pseudo);
+            return tournamentName;
         }
 
         public double AddPlayerPoints(string pseudo, double newPoints)
@@ -44,6 +32,7 @@ namespace betclic_test.Infrastructure
             var player = _bddManager.SelectPlayer(pseudo);
             player.Score += newPoints;
             _bddManager.UpdatePlayer(player.PlayerId, player);
+            _bddManager.UpdatePlayerPositionInTournament(player.TournamentId);
             return player.Score;
         }
 

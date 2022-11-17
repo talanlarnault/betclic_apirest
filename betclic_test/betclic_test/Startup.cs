@@ -23,7 +23,7 @@ namespace betclic_test
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IBDD_Manager, BDD_Manager>();
+            services.AddSingleton<IBDD_Manager, BDD_SQLite_Manager>();
             services.AddSingleton<IDatabaseService, DatabaseService>();
             services.AddSingleton<ITournamentManager, TournamentManager>();
             services.AddControllers();

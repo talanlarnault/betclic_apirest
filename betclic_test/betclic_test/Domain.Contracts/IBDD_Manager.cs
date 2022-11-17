@@ -15,5 +15,6 @@ namespace betclic_test.Domain.Contracts
         IEnumerable<BDD_Player> SelectTournamentPlayers();
         IEnumerable<BDD_Player> SelectTournamentPlayers(int tournamentId);
         int UpdatePlayer(int id, BDD_Player player);
+        void UpdatePlayerPositionInTournament(int tournamentId);
     }
 }
