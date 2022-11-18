@@ -44,7 +44,7 @@ namespace betclic_test.Controllers
             }
         }
         [HttpPut("{pseudo}/{newPoints}")]
-        public IActionResult AddPlayerPoints(string pseudo, double newPoints)
+        public IActionResult AddPlayerPoints(string pseudo, int newPoints)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace betclic_test.Controllers
             }
         }
         [HttpPut("{pseudo}/{newScore}")]
-        public IActionResult UpdatePlayerScore(string pseudo, double newScore)
+        public IActionResult UpdatePlayerScore(string pseudo, int newScore)
         {
             try
             {

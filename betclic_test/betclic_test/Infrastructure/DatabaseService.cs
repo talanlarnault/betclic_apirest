@@ -27,7 +27,7 @@ namespace betclic_test.Infrastructure
             return tournamentName;
         }
 
-        public double AddPlayerPoints(string pseudo, double newPoints)
+        public double AddPlayerPoints(string pseudo, int newPoints)
         {
             var player = _bddManager.SelectPlayer(pseudo);
             player.Score += newPoints;
@@ -36,11 +36,12 @@ namespace betclic_test.Infrastructure
             return player.Score;
         }
 
-        public double UpdatePlayerScore(string pseudo, double newScore)
+        public double UpdatePlayerScore(string pseudo, int newScore)
         {
             var player = _bddManager.SelectPlayer(pseudo);
             player.Score = newScore;
             _bddManager.UpdatePlayer(player.PlayerId, player);
+            _bddManager.UpdatePlayerPositionInTournament(player.TournamentId);
             return player.Score;
         }
 
@@ -71,9 +72,8 @@ namespace betclic_test.Infrastructure
         }
         public bool DeletePlayersFromTournament()
         {
-            var myBddManager = _bddManager;
-            var tournamentId = myBddManager.GetTournamentId();
-            return myBddManager.DeletePlayersFromTournament(tournamentId) > 0;
+            var tournamentId = _bddManager.GetTournamentId();
+            return _bddManager.DeletePlayersFromTournament(tournamentId) > 0;
         }
     }
 }

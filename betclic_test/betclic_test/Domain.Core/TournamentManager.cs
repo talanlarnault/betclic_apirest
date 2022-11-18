@@ -21,12 +21,12 @@ namespace betclic_test.Domain.Core
             return _databaseService.AddPlayer(pseudo);
         }
 
-        public double AddPlayerPoints(string pseudo, double newPoints)
+        public double AddPlayerPoints(string pseudo, int newPoints)
         {
             return _databaseService.AddPlayerPoints(pseudo, newPoints);
         }
 
-        public double UpdatePlayerScore(string pseudo, double newScore)
+        public double UpdatePlayerScore(string pseudo, int newScore)
         {
             return _databaseService.UpdatePlayerScore(pseudo, newScore);
         }

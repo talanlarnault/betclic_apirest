@@ -4,7 +4,7 @@
     {
         public string Pseudo { get; set; }
         public int TournamentId { get; set; }
-        public double Score { get; set; }
+        public int Score { get; set; }
         public int TournamentPosition { get; set; }
     }
 }

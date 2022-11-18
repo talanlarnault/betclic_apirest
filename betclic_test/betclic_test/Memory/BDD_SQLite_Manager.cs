@@ -45,10 +45,11 @@ namespace betclic_test.Memory
             // if exist do nothing 
             if (name != null && name.ToString() == "Tournament")
             {
-                string Deletesql = "DROP TABLE Tournament";
-                sqlite_cmd.CommandText = Deletesql;
-                sqlite_cmd.ExecuteNonQuery();
-                //return;
+                //Could be able to choose to drop with configuration value
+                //string Deletesql = "DROP TABLE Tournament";
+                //sqlite_cmd.CommandText = Deletesql;
+                //sqlite_cmd.ExecuteNonQuery();
+                return;
             }
 
             string Createsql = "CREATE TABLE Tournament (Id INTEGER PRIMARY KEY ASC, Name VARCHAR(50))";
@@ -65,13 +66,14 @@ namespace betclic_test.Memory
             // if exist do nothing 
             if (name != null && name.ToString() == "Player")
             {
-                string Deletesql = "DROP TABLE Player";
-                sqlite_cmd.CommandText = Deletesql;
-                sqlite_cmd.ExecuteNonQuery();
-                //return;
+                //Could be able to choose to drop with configuration value
+                //string Deletesql = "DROP TABLE Player";
+                //sqlite_cmd.CommandText = Deletesql;
+                //sqlite_cmd.ExecuteNonQuery();
+                return;
             }
 
-            string Createsql = "CREATE TABLE Player (Id INTEGER PRIMARY KEY ASC, Pseudo VARCHAR(50), TournamentId INTEGER, Score REAL DEFAULT 0, TournamentPosition INTEGER DEFAULT 999, FOREIGN KEY(TournamentId) REFERENCES Tournament(Id))";
+            string Createsql = "CREATE TABLE Player (Id INTEGER PRIMARY KEY ASC, Pseudo VARCHAR(50), TournamentId INTEGER, Score INTEGER DEFAULT 0, TournamentPosition INTEGER DEFAULT 999, FOREIGN KEY(TournamentId) REFERENCES Tournament(Id))";
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
         }
@@ -185,7 +187,7 @@ namespace betclic_test.Memory
                 sqlite_datareader.Read();
                 var player = new BDD_Player(sqlite_datareader.GetInt32(0), sqlite_datareader.GetString(1), sqlite_datareader.GetInt32(2))
                 {
-                    Score = sqlite_datareader.GetDouble(3),
+                    Score = sqlite_datareader.GetInt32(3),
                     TournamentPosition = sqlite_datareader.GetInt32(4)
                 };
                 return player;
@@ -214,7 +216,7 @@ namespace betclic_test.Memory
                 {
                     players.Add(new BDD_Player(sqlite_datareader.GetInt32(0), sqlite_datareader.GetString(1), sqlite_datareader.GetInt32(2))
                     {
-                        Score = sqlite_datareader.GetDouble(3),
+                        Score = sqlite_datareader.GetInt32(3),
                         TournamentPosition = sqlite_datareader.GetInt32(4)
                     });
                 }
@@ -233,7 +235,7 @@ namespace betclic_test.Memory
             {
                 SQLiteCommand sqlite_cmd;
                 sqlite_cmd = sqlite_conn.CreateCommand();
-                sqlite_cmd.CommandText = $"UPDATE Player SET Score={player.Score}, TournamentPosition={player.TournamentPosition} WHERE Id={id};";
+                sqlite_cmd.CommandText = $"UPDATE Player SET Score='{player.Score}', TournamentPosition={player.TournamentPosition} WHERE Id={id};";
                 sqlite_cmd.ExecuteNonQuery();
 
                 return 1;

@@ -6,7 +6,7 @@ namespace betclic_test.Domain.Contracts
     public interface IDatabaseService
     {
         string AddPlayer(string pseudo);
-        double AddPlayerPoints(string pseudo, double newPoints);
+        double AddPlayerPoints(string pseudo, int newPoints);
         int AddTournament(string name);
         bool DeletePlayersFromTournament(int tournamentId);
         bool DeletePlayersFromTournament();
@@ -14,6 +14,6 @@ namespace betclic_test.Domain.Contracts
         bool DeleteTournament(int id);
         Player GetPlayer(string pseudo);
         IEnumerable<Player> GetPlayersSortedByScore();
-        double UpdatePlayerScore(string pseudo, double newScore);
+        double UpdatePlayerScore(string pseudo, int newScore);
     }
 }

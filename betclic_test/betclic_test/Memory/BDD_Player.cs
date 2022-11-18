@@ -11,7 +11,7 @@
         public int PlayerId { get; }
         public string Pseudo { get; }
         public int TournamentId { get; }
-        public double Score { get; set; }
+        public int Score { get; set; }
         public int TournamentPosition { get; set; }
     }
 }
