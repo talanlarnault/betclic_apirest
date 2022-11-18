@@ -124,7 +124,7 @@ namespace betclic_test.Memory
             }
             catch (Exception ex)
             {
-                throw new BDDException($"Impossible to get tounament id from name [{tournamentName}]", ex);
+                throw new BDDException($"Impossible to get tournament id from name [{tournamentName}]", ex);
             }
         }
 
@@ -136,7 +136,7 @@ namespace betclic_test.Memory
             }
             catch (Exception ex)
             {
-                throw new BDDException($"Impossible to get tounament id", ex);
+                throw new BDDException($"Impossible to get tournament id", ex);
             }
         }
 
@@ -148,7 +148,7 @@ namespace betclic_test.Memory
             }
             catch (Exception ex)
             {
-                throw new BDDException($"Impossible to get tounament name from id [{id}]", ex);
+                throw new BDDException($"Impossible to get tournament name from id [{id}]", ex);
             }
         }
     }

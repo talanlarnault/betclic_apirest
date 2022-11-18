@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "betclic_test", "betclic_test\betclic_test.csproj", "{0B08B562-B142-41AA-9FBE-6A5E9083558D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "betclic_test", "betclic_test\betclic_test.csproj", "{0B08B562-B142-41AA-9FBE-6A5E9083558D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "betclic_test.test.unit", "betclic_test.test.unit\betclic_test.test.unit.csproj", "{96B00E8A-0E4E-48B4-9B01-555AF2C834CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "betclic_test.test.unit", "betclic_test.test.unit\betclic_test.test.unit.csproj", "{96B00E8A-0E4E-48B4-9B01-555AF2C834CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "betclic_test.test.integration", "betclic_test.test.integration\betclic_test.test.integration.csproj", "{C728C5B9-13A7-4BB0-A18B-747F2DB1D81C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "betclic_test.test.integration", "betclic_test.test.integration\betclic_test.test.integration.csproj", "{C728C5B9-13A7-4BB0-A18B-747F2DB1D81C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE38221E-9D77-43C7-AA67-B703B0FAF803}"
+	ProjectSection(SolutionItems) = preProject
+		betclic_test_api.zip = betclic_test_api.zip
+		UncompressAndLaunch.bat = UncompressAndLaunch.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
